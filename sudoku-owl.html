@@ -1,0 +1,663 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sudoku Owl - Daily Puzzles & Brain Training | Go Owl Digital</title>
+    <meta name="description" content="Sudoku Owl - A beautifully designed Sudoku puzzle game with daily challenges, streak tracking, and brain training. Download free on the App Store.">
+    <meta name="keywords" content="sudoku, puzzle game, brain training, daily challenge, iOS app, mobile game, logic puzzle">
+    <meta name="author" content="Go Owl Digital">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://goowldigital.com/sudoku-owl">
+    <link rel="icon" type="image/png" href="/favicon.png">
+    <link rel="apple-touch-icon" href="/favicon.png">
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://goowldigital.com/sudoku-owl">
+    <meta property="og:title" content="Sudoku Owl - Daily Puzzles & Brain Training">
+    <meta property="og:description" content="A beautifully designed Sudoku puzzle game with daily challenges, streak tracking, and brain training features.">
+    <meta property="og:image" content="https://goowldigital.com/sudoku-owl/og-image.png">
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:url" content="https://goowldigital.com/sudoku-owl">
+    <meta name="twitter:title" content="Sudoku Owl - Daily Puzzles & Brain Training">
+    <meta name="twitter:description" content="A beautifully designed Sudoku puzzle game with daily challenges, streak tracking, and brain training features.">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.2/font/bootstrap-icons.css">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            line-height: 1.6;
+            color: #1a202c;
+            background: #fff;
+        }
+
+        /* Header */
+        header {
+            background: #0f172a;
+            padding: 1rem 2rem;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .header-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            color: white;
+            font-size: 1.5rem;
+            font-weight: 800;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            text-decoration: none;
+        }
+
+        .logo span {
+            color: #f59e0b;
+        }
+
+        nav {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        nav a {
+            color: #94a3b8;
+            text-decoration: none;
+            font-size: 0.95rem;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+
+        nav a:hover {
+            color: #f59e0b;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: all 0.2s;
+            cursor: pointer;
+            border: none;
+        }
+
+        .btn-primary {
+            background: #f59e0b;
+            color: #0f172a;
+        }
+
+        .btn-primary:hover {
+            background: #d97706;
+            transform: translateY(-2px);
+        }
+
+        .btn-large {
+            padding: 1rem 2rem;
+            font-size: 1.1rem;
+        }
+
+        .btn-appstore {
+            background: #000;
+            color: #fff;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.875rem 1.5rem;
+        }
+
+        .btn-appstore:hover {
+            background: #1a1a1a;
+            transform: translateY(-2px);
+        }
+
+        .btn-appstore i {
+            font-size: 1.75rem;
+        }
+
+        .btn-appstore .btn-text {
+            text-align: left;
+            line-height: 1.2;
+        }
+
+        .btn-appstore .btn-text small {
+            font-size: 0.7rem;
+            font-weight: 400;
+            opacity: 0.9;
+        }
+
+        .btn-appstore .btn-text span {
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+
+        /* Hero */
+        .hero {
+            background: linear-gradient(135deg, #8B4513 0%, #A0522D 50%, #CD853F 100%);
+            color: white;
+            padding: 8rem 2rem 4rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+            opacity: 0.5;
+        }
+
+        .hero-inner {
+            max-width: 1000px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+            text-align: left;
+        }
+
+        .hero-text h1 {
+            font-size: 3.5rem;
+            font-weight: 800;
+            margin-bottom: 0.5rem;
+            line-height: 1.1;
+        }
+
+        .hero-tagline {
+            font-size: 1.5rem;
+            opacity: 0.9;
+            margin-bottom: 1.5rem;
+            font-weight: 500;
+        }
+
+        .hero-text p {
+            font-size: 1.15rem;
+            opacity: 0.9;
+            margin-bottom: 2rem;
+            line-height: 1.7;
+        }
+
+        .app-icon-large {
+            width: 280px;
+            height: 280px;
+            background: linear-gradient(135deg, #4CAF50 0%, #8BC34A 100%);
+            border-radius: 56px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 140px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            margin: 0 auto;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        /* Features */
+        .features {
+            padding: 5rem 2rem;
+            background: #f8fafc;
+        }
+
+        .features-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .section-header h2 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: #0f172a;
+            margin-bottom: 1rem;
+        }
+
+        .section-header p {
+            font-size: 1.2rem;
+            color: #64748b;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+        }
+
+        .feature-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 16px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            transition: all 0.3s;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 24px rgba(0,0,0,0.1);
+        }
+
+        .feature-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .feature-card h3 {
+            font-size: 1.25rem;
+            color: #0f172a;
+            margin-bottom: 0.75rem;
+        }
+
+        .feature-card p {
+            color: #64748b;
+            font-size: 0.95rem;
+        }
+
+        /* Screenshots */
+        .screenshots {
+            padding: 5rem 2rem;
+            background: #0f172a;
+            color: white;
+        }
+
+        .screenshots-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .screenshots .section-header h2 {
+            color: white;
+        }
+
+        .screenshots .section-header p {
+            color: #94a3b8;
+        }
+
+        .screenshot-grid {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .screenshot {
+            width: 220px;
+            border-radius: 24px;
+            overflow: hidden;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+            transition: transform 0.3s;
+        }
+
+        .screenshot:hover {
+            transform: scale(1.05);
+        }
+
+        .screenshot img {
+            width: 100%;
+            display: block;
+        }
+
+        /* What Makes It Unique */
+        .unique {
+            padding: 5rem 2rem;
+            background: linear-gradient(135deg, #fffbeb 0%, #fef3c7 100%);
+        }
+
+        .unique-inner {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .unique-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+        }
+
+        .unique-item {
+            display: flex;
+            gap: 1rem;
+            align-items: flex-start;
+        }
+
+        .unique-item i {
+            font-size: 1.5rem;
+            color: #f59e0b;
+            flex-shrink: 0;
+            margin-top: 0.25rem;
+        }
+
+        .unique-item h4 {
+            font-size: 1.1rem;
+            color: #0f172a;
+            margin-bottom: 0.25rem;
+        }
+
+        .unique-item p {
+            color: #64748b;
+            font-size: 0.95rem;
+        }
+
+        /* Download CTA */
+        .download-cta {
+            padding: 5rem 2rem;
+            background: linear-gradient(135deg, #8B4513 0%, #A0522D 100%);
+            color: white;
+            text-align: center;
+        }
+
+        .download-cta-inner {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .download-cta h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .download-cta p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            margin-bottom: 2rem;
+        }
+
+        /* Privacy & Support */
+        .legal {
+            padding: 3rem 2rem;
+            background: #f8fafc;
+            text-align: center;
+        }
+
+        .legal-inner {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .legal-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .legal-links a {
+            color: #64748b;
+            text-decoration: none;
+            font-size: 0.95rem;
+        }
+
+        .legal-links a:hover {
+            color: #f59e0b;
+        }
+
+        .legal p {
+            color: #94a3b8;
+            font-size: 0.9rem;
+        }
+
+        /* Footer */
+        footer {
+            background: #0f172a;
+            color: #94a3b8;
+            padding: 2rem;
+            text-align: center;
+        }
+
+        footer a {
+            color: #f59e0b;
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+
+        /* Responsive */
+        @media (max-width: 900px) {
+            .hero-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .hero-text {
+                order: 2;
+            }
+
+            .app-icon-large {
+                width: 200px;
+                height: 200px;
+                font-size: 100px;
+                border-radius: 40px;
+            }
+
+            .hero-buttons {
+                justify-content: center;
+            }
+
+            .feature-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .unique-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hero-text h1 {
+                font-size: 2.5rem;
+            }
+
+            nav {
+                display: none;
+            }
+
+            .screenshot {
+                width: 160px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-inner">
+            <a href="/" class="logo">GO OWL <span>DIGITAL</span></a>
+            <nav>
+                <a href="/#products">Products</a>
+                <a href="/#services">Services</a>
+                <a href="/#contact">Contact</a>
+            </nav>
+            <a href="https://apps.apple.com/app/id6757087219" class="btn btn-primary">Download App</a>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="hero-inner">
+            <div class="hero-content">
+                <div class="hero-text">
+                    <h1>Sudoku Owl</h1>
+                    <div class="hero-tagline">Sudoku-Hoo-Hoo 🦉</div>
+                    <p>A beautifully crafted Sudoku experience with daily challenges, streak tracking, and brain training features. Built from scratch with love by Go Owl Digital.</p>
+                    <div class="hero-buttons">
+                        <a href="https://apps.apple.com/app/id6757087219" class="btn btn-appstore">
+                            <i class="bi bi-apple"></i>
+                            <div class="btn-text">
+                                <small>Download on the</small><br>
+                                <span>App Store</span>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                <div class="app-icon-large">🦉</div>
+            </div>
+        </div>
+    </section>
+
+    <section class="features">
+        <div class="features-inner">
+            <div class="section-header">
+                <h2>Features</h2>
+                <p>Everything you need for the perfect Sudoku experience</p>
+            </div>
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">🔥</div>
+                    <h3>Daily Challenges</h3>
+                    <p>A fresh puzzle every day. Build your streak and watch the flames grow. How long can you keep it going?</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">⭐</div>
+                    <h3>Gamified Calendar</h3>
+                    <p>Track your progress with a beautiful star-filled calendar. See your monthly completion rate and celebrate your consistency.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">📊</div>
+                    <h3>Detailed Statistics</h3>
+                    <p>Track your best times, average times, win rate, and total score. Watch yourself improve over time.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🎯</div>
+                    <h3>Three Difficulty Levels</h3>
+                    <p>Easy for beginners, Medium for the logical thinker, Hard for the true Sudoku master.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">💡</div>
+                    <h3>Smart Hints</h3>
+                    <p>Stuck on a puzzle? Get intelligent hints that help you learn, not just give away answers.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🌙</div>
+                    <h3>Night Mode</h3>
+                    <p>Easy on the eyes for late-night puzzling. Switch between light and dark themes anytime.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="unique">
+        <div class="unique-inner">
+            <div class="section-header">
+                <h2>What Makes Sudoku Owl Different</h2>
+                <p>Built from scratch, not a template</p>
+            </div>
+            <div class="unique-grid">
+                <div class="unique-item">
+                    <i class="bi bi-code-slash"></i>
+                    <div>
+                        <h4>100% Original Code</h4>
+                        <p>Every line of code written from scratch. No templates, no clones, no shortcuts.</p>
+                    </div>
+                </div>
+                <div class="unique-item">
+                    <i class="bi bi-trophy"></i>
+                    <div>
+                        <h4>Unique Scoring System</h4>
+                        <p>Time bonuses, streak multipliers, and difficulty rewards make every game count.</p>
+                    </div>
+                </div>
+                <div class="unique-item">
+                    <i class="bi bi-calendar-check"></i>
+                    <div>
+                        <h4>Gamified Streaks</h4>
+                        <p>Duolingo-style streak tracking with fire animations and motivational messages.</p>
+                    </div>
+                </div>
+                <div class="unique-item">
+                    <i class="bi bi-book"></i>
+                    <div>
+                        <h4>Learn Section</h4>
+                        <p>Built-in tutorials teaching Sudoku techniques from basic to advanced.</p>
+                    </div>
+                </div>
+                <div class="unique-item">
+                    <i class="bi bi-palette"></i>
+                    <div>
+                        <h4>Beautiful Design</h4>
+                        <p>Warm, owl-themed aesthetic that's a joy to look at and use.</p>
+                    </div>
+                </div>
+                <div class="unique-item">
+                    <i class="bi bi-shield-check"></i>
+                    <div>
+                        <h4>Privacy First</h4>
+                        <p>No account required. All data stored locally on your device.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="download-cta">
+        <div class="download-cta-inner">
+            <h2>Ready to Play?</h2>
+            <p>Download Sudoku Owl for free and start your brain training journey today.</p>
+            <a href="https://apps.apple.com/app/id6757087219" class="btn btn-appstore btn-large">
+                <i class="bi bi-apple"></i>
+                <div class="btn-text">
+                    <small>Download on the</small><br>
+                    <span>App Store</span>
+                </div>
+            </a>
+        </div>
+    </section>
+
+    <section class="legal">
+        <div class="legal-inner">
+            <div class="legal-links">
+                <a href="/sudoku-owl/privacy">Privacy Policy</a>
+                <a href="/sudoku-owl/support">Support</a>
+                <a href="mailto:walsh688@gmail.com">Contact</a>
+            </div>
+            <p>&copy; 2025 Go Owl Digital. All rights reserved.</p>
+        </div>
+    </section>
+
+    <footer>
+        <p>Sudoku Owl is developed by <a href="/">Go Owl Digital</a></p>
+    </footer>
+</body>
+</html>
