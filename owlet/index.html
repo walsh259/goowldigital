@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Owlet - Tabata Timer | Go Owl Digital</title>
+    <meta name="description" content="Owlet is a beautifully designed Tabata timer app for iOS. High-intensity interval training made simple and effective.">
+    <meta name="keywords" content="tabata, hiit, interval timer, workout, fitness, ios app">
+    <link rel="icon" type="image/png" href="/favicon.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            line-height: 1.6;
+            color: #f0f0f0;
+            background: linear-gradient(180deg, #1A1A2E 0%, #16162A 100%);
+            min-height: 100vh;
+        }
+        header {
+            padding: 1.5rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .logo {
+            color: white;
+            font-size: 1.25rem;
+            font-weight: 800;
+            text-decoration: none;
+        }
+        .logo span { color: #FFB800; }
+        nav a {
+            color: #a0a0b0;
+            text-decoration: none;
+            margin-left: 2rem;
+            font-size: 0.9rem;
+            transition: color 0.2s;
+        }
+        nav a:hover { color: #FFB800; }
+        .hero {
+            text-align: center;
+            padding: 4rem 2rem;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .app-icon {
+            width: 120px;
+            height: 120px;
+            border-radius: 28px;
+            margin-bottom: 2rem;
+            box-shadow: 0 20px 40px rgba(255, 184, 0, 0.2);
+        }
+        h1 {
+            font-size: 3.5rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, #FFB800 0%, #FF6B35 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .tagline {
+            font-size: 1.5rem;
+            color: #a0a0b0;
+            margin-bottom: 2rem;
+        }
+        .cta-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 1rem 2rem;
+            border-radius: 12px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.2s;
+        }
+        .btn-primary {
+            background: #FFB800;
+            color: #1A1A2E;
+        }
+        .btn-primary:hover {
+            background: #FFC933;
+            transform: translateY(-2px);
+        }
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.1);
+            color: #f0f0f0;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.15);
+        }
+        .features {
+            padding: 4rem 2rem;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        .features h2 {
+            text-align: center;
+            font-size: 2rem;
+            margin-bottom: 3rem;
+            color: #f0f0f0;
+        }
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+        }
+        .feature-card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 16px;
+            padding: 1.5rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .feature-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+        .feature-icon.work { background: rgba(255, 107, 53, 0.2); }
+        .feature-icon.rest { background: rgba(0, 206, 201, 0.2); }
+        .feature-icon.timer { background: rgba(255, 184, 0, 0.2); }
+        .feature-icon.history { background: rgba(0, 210, 106, 0.2); }
+        .feature-icon.audio { background: rgba(148, 163, 184, 0.2); }
+        .feature-icon.premium { background: rgba(255, 184, 0, 0.2); }
+        .feature-card h3 {
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+            color: #f0f0f0;
+        }
+        .feature-card p {
+            color: #a0a0b0;
+            font-size: 0.9rem;
+        }
+        .how-it-works {
+            padding: 4rem 2rem;
+            background: rgba(255, 255, 255, 0.02);
+        }
+        .how-it-works-inner {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+        }
+        .how-it-works h2 {
+            font-size: 2rem;
+            margin-bottom: 3rem;
+            color: #f0f0f0;
+        }
+        .steps {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            gap: 2rem;
+        }
+        .step {
+            flex: 1;
+            min-width: 200px;
+            max-width: 250px;
+        }
+        .step-number {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: 800;
+            margin: 0 auto 1rem;
+        }
+        .step:nth-child(1) .step-number { background: rgba(255, 184, 0, 0.2); color: #FFB800; }
+        .step:nth-child(2) .step-number { background: rgba(255, 107, 53, 0.2); color: #FF6B35; }
+        .step:nth-child(3) .step-number { background: rgba(0, 206, 201, 0.2); color: #00CEC9; }
+        .step:nth-child(4) .step-number { background: rgba(0, 210, 106, 0.2); color: #00D26A; }
+        .step h3 {
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+            color: #f0f0f0;
+        }
+        .step p {
+            color: #a0a0b0;
+            font-size: 0.9rem;
+        }
+        footer {
+            padding: 3rem 2rem;
+            text-align: center;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+        }
+        .footer-links a {
+            color: #a0a0b0;
+            text-decoration: none;
+            font-size: 0.9rem;
+        }
+        .footer-links a:hover { color: #FFB800; }
+        .copyright {
+            color: #6b6b7b;
+            font-size: 0.85rem;
+        }
+        @media (max-width: 600px) {
+            h1 { font-size: 2.5rem; }
+            .tagline { font-size: 1.2rem; }
+            header { flex-direction: column; gap: 1rem; }
+            nav a { margin: 0 1rem; }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <a href="/" class="logo">GO OWL <span>DIGITAL</span></a>
+        <nav>
+            <a href="#features">Features</a>
+            <a href="support">Support</a>
+            <a href="privacy">Privacy</a>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <img src="app-icon.png" alt="Owlet App Icon" class="app-icon">
+        <h1>Owlet</h1>
+        <p class="tagline">Your Tabata Training Companion</p>
+        <div class="cta-buttons">
+            <a href="#" class="btn btn-primary">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
+                Download on App Store
+            </a>
+        </div>
+    </section>
+
+    <section class="features" id="features">
+        <h2>Train Smarter, Not Longer</h2>
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon work">🔥</div>
+                <h3>High-Intensity Intervals</h3>
+                <p>Classic Tabata protocol: 20 seconds of intense work followed by 10 seconds of rest. Burn maximum calories in minimum time.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon rest">💨</div>
+                <h3>Smart Rest Periods</h3>
+                <p>Short rest intervals keep your heart rate elevated while giving your muscles just enough time to recover.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon timer">⏱️</div>
+                <h3>Beautiful Timer</h3>
+                <p>Large, easy-to-read display with color-coded phases. Know exactly where you are in your workout at a glance.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon history">📊</div>
+                <h3>Track Progress</h3>
+                <p>View your workout history, track calories burned, and build your streak. Stay motivated with visible progress.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon audio">🔔</div>
+                <h3>Audio & Haptic Cues</h3>
+                <p>Never miss a transition with audio alerts and haptic feedback. Keep your eyes on your exercise, not the screen.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon premium">⭐</div>
+                <h3>Custom Workouts</h3>
+                <p>Create your own interval timers with custom work and rest periods. Design the perfect workout for your goals.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="how-it-works">
+        <div class="how-it-works-inner">
+            <h2>How Tabata Works</h2>
+            <div class="steps">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <h3>Get Ready</h3>
+                    <p>5-second countdown to prepare for your workout</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <h3>Work Hard</h3>
+                    <p>20 seconds of maximum effort exercise</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <h3>Rest Smart</h3>
+                    <p>10 seconds of active recovery</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">4</div>
+                    <h3>Repeat</h3>
+                    <p>8 rounds for a complete 4-minute workout</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-links">
+            <a href="support">Support</a>
+            <a href="privacy">Privacy Policy</a>
+            <a href="terms">Terms of Service</a>
+            <a href="mailto:walsh688@gmail.com">Contact</a>
+        </div>
+        <p class="copyright">&copy; 2025 Go Owl Digital. All rights reserved.</p>
+    </footer>
+</body>
+</html>
