@@ -215,14 +215,16 @@
         .app-icon-large {
             width: 280px;
             height: 280px;
-            background: linear-gradient(135deg, #4CAF50 0%, #8BC34A 100%);
             border-radius: 56px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 140px;
             box-shadow: 0 20px 60px rgba(0,0,0,0.3);
             margin: 0 auto;
+            overflow: hidden;
+        }
+
+        .app-icon-large img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
         }
 
         .hero-buttons {
@@ -532,7 +534,9 @@
                         </a>
                     </div>
                 </div>
-                <div class="app-icon-large">🦉</div>
+                <div class="app-icon-large">
+                    <img src="/sudoku-owl/app-icon.png" alt="Sudoku Owl App Icon">
+                </div>
             </div>
         </div>
     </section>
